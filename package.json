@@ -1,11 +1,15 @@
 {
-  "name": "fiverr-clone",
+  "name": "sih-project",
   "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
-    "build": "if-env TYPE=server && (cd server && npm install) || (cd client && npm install)",
-    "server": "node ./server/index.js",
-    "client": "cd client && npm start"
+    "build":"if-env TYPE=server && (cd server && npm install)||(cd client && npm install)",
+    "server":"node ./server/index.js",
+    "client":"cd client && npm start"
   },
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "dependencies": {
     "if-env": "^1.0.4"
   }
