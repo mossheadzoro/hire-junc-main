@@ -2,9 +2,9 @@
 
 A big thank you to these amazing people for helping make this project awesome!
 
-- **[Friend 1's GitHub](https://github.com/Dhwani107)**
-- **[Friend 2's GitHub](https://github.com/Aditya82005)** 
-- **[Friend 3's GitHub](https://github.com/AnanAgarwal)**
+- **[Dhwani Chauhan](https://github.com/Dhwani107)**
+- **[Aditya Shaw](https://github.com/Aditya82005)** 
+- **[Anan Agarwal](https://github.com/AnanAgarwal)**
 
 Want to join the project? Reach out to me [here](mailto:your.email@example.com)!
 
