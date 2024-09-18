@@ -1,14 +1,13 @@
-## Contributors
+## 👥 **Contributors**
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-[![All Contributors](https://img.shields.io/github/all-contributors/mossheadzoro/hire-junc-main?color=ee8449&style=flat-square)](#contributors)
+A big thank you to these amazing people for helping make this project awesome!
 
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
+- **[Friend 1's GitHub](https://github.com/Dhwani107)**
+- **[Friend 2's GitHub](https://github.com/Aditya82005)** 
+- **[Friend 3's GitHub](https://github.com/AnanAgarwal)**
 
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+Want to join the project? Reach out to me [here](mailto:your.email@example.com)!
+
 
  
  # hire-junc-main
