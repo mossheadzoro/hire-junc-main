@@ -1,46 +1,82 @@
 import { PrismaClient } from "@prisma/client";
 
+// export const addMessage = async (req, res, next) => {
+//   try {
+//     const prisma = new PrismaClient();
+
+//     if (
+//       req.userId &&
+//       req.body.recipentId &&
+//       req.params.orderId &&
+//       req.body.message
+//     ) {
+//       const message = await prisma.message.create({
+//         data: {
+//           sender: {
+//             connect: {
+//               // @ts-expect-error
+//               id: parseInt(req.userId),
+//             },
+//           },
+//           recipient: {
+//             connect: {
+//               id: parseInt(req.body.recipentId),
+//             },
+//           },
+//           order: {
+//             connect: {
+//               id: parseInt(req.params.orderId),
+//             },
+//           },
+//           text: req.body.message,
+//         },
+//       });
+//       return res.status(201).json({ message });
+//     }
+//     return res
+//       .status(400)
+//       .send("userId, recipentId, orderId and message is required.");
+//   } catch (err) {
+//     console.log(err);
+//     return res.status(500).send("Internal Server Error");
+//   }
+// };
+
 export const addMessage = async (req, res, next) => {
   try {
     const prisma = new PrismaClient();
 
-    if (
-      req.userId &&
-      req.body.recipentId &&
-      req.params.orderId &&
-      req.body.message
-    ) {
-      const message = await prisma.message.create({
-        data: {
-          sender: {
-            connect: {
-              // @ts-expect-error
-              id: parseInt(req.userId),
-            },
-          },
-          recipient: {
-            connect: {
-              id: parseInt(req.body.recipentId),
-            },
-          },
-          order: {
-            connect: {
-              id: parseInt(req.params.orderId),
-            },
-          },
-          text: req.body.message,
+    if (req.userId && req.body.recipentId && req.params.orderId) {
+      const messageData = {
+        sender: {
+          connect: { id: parseInt(req.userId) },
         },
+        recipient: {
+          connect: { id: parseInt(req.body.recipentId) },
+        },
+        order: {
+          connect: { id: parseInt(req.params.orderId) },
+        },
+        text: req.body.message || '',
+      };
+
+      if (req.body.fileUrl) {
+        messageData.fileUrl = req.body.fileUrl; // Add file URL to message
+      }
+
+      const message = await prisma.message.create({
+        data: messageData,
       });
+
       return res.status(201).json({ message });
     }
-    return res
-      .status(400)
-      .send("userId, recipentId, orderId and message is required.");
+    return res.status(400).send('Missing required data.');
   } catch (err) {
     console.log(err);
-    return res.status(500).send("Internal Server Error");
+    return res.status(500).send('Internal Server Error');
   }
 };
+
 
 export const getMessages = async (req, res, next) => {
   try {

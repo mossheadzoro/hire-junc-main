@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Logo from "../components/LOGO.jsx";
 import Link from "next/link";
 import { IoSearchOutline } from "react-icons/io5";
@@ -10,7 +10,7 @@ import { GET_USER_INFO, HOST } from "../utils/constants";
 import ContextMenu from "./ContextMenu";
 import { useStateProvider } from "../context/StateContext";
 import { reducerCases } from "../context/constants";
-
+import  gsap  from "gsap";
 function Navbar() {
   const [cookies] = useCookies();
   const router = useRouter();
@@ -160,17 +160,33 @@ function Navbar() {
     },
   ];
 
+  const logo=useRef(null);
+  const searchBox=useRef(null);
+  const search=useRef(null);
+  const list=useRef(null);
+  useEffect(() => {
+    if(logo.current && searchBox.current&& search.current && list.current){
+
+      gsap.fromTo(
+        [ logo.current,searchBox.current,search.current,list.current], 
+        { x: -200, opacity: 0 }, // Initial state (off-screen, invisible)
+        { x: 0, opacity: 1, duration: 1, stagger: 0.2 } // End state (in-place, visible with stagger)
+      );
+    }
+  }, [isLoaded]);
+  
+
   return (
-    <>
+    <div>
       {isLoaded && (
         <nav
-          className={`w-full px-24 flex justify-between items-center py-3 gap-4 top-0 z-30 transition-all duration-300 ${
+          className={`w-full px-24 flex justify-between items-center py-1  gap-4 top-0 z-30 transition-all duration-300 ${
             navFixed || userInfo
               ? "fixed bg-[#A0C7C7] border-b border-gray-200"
               : "absolute bg-transparent border-transparent"
           }`}
         >
-          <div>
+          <div ref={logo}>
             <Link href="/">
               <div className="flex items-center justify-between ">
                 <Logo/>
@@ -183,6 +199,7 @@ function Navbar() {
             }`}
           >
             <input
+            ref={searchBox}
               type="text"
               placeholder="What service are you looking for today?"
               className="w-[30rem] py-2.5 px-4 border"
@@ -190,6 +207,7 @@ function Navbar() {
               onChange={(e) => setSearchData(e.target.value)}
             />
             <button
+            ref={search}
               className="bg-gray-900 py-1.5 text-white w-16 flex justify-center items-center"
               onClick={() => {
                 setSearchData("");
@@ -200,10 +218,11 @@ function Navbar() {
             </button>
           </div>
           {!userInfo ? (
-            <ul className="flex gap-10 items-center">
+            <ul className="flex gap-10 items-center" ref={list}>
               {links.map(({ linkName, handler, type }) => {
                 return (
                   <li
+                  
                     key={linkName}
                     className={`${
                       navFixed ? "text-black" : "text-white"
@@ -230,7 +249,7 @@ function Navbar() {
               })}
             </ul>
           ) : (
-            <ul className="flex gap-10 items-center">
+            <ul className="flex gap-10 items-center" ref={list}>
               {isSeller && (
                 <li
                   className="cursor-pointer text-black font-medium"
@@ -292,7 +311,7 @@ function Navbar() {
           {isContextMenuVisible && <ContextMenu data={ContextMenuData} />}
         </nav>
       )}
-    </>
+    </div>
   );
 }
 

@@ -25,6 +25,7 @@ function Profile() {
     description: "",
   });
 
+
   useEffect(() => {
     const handleData = { ...data };
     if (userInfo) {
@@ -69,10 +70,8 @@ function Profile() {
         { ...data },
         { withCredentials: true }
       );
-      if (!response.data.userNameError) {
-        setErrorMessage("Enter a Unique Username");
-        toast.error("Enter a Unique UserName");
-      } else {
+      console.log(response)
+     
         let imageName = "";
         if (image) {
           const formData = new FormData();
@@ -99,7 +98,7 @@ function Profile() {
 
         router.push("/");
         toast.success("Profile Set Successfully!!")
-      }
+      
     } catch (err) {
       console.error(err);
     }

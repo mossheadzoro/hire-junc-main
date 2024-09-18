@@ -11,6 +11,13 @@ export const categories = [
   { name: "Photography", logo: "/service-10.svg" },
 ];
 
+export const mainCategory = [
+  { name: "TECHNICAL",  },
+  { name: "NON-TECHNICAL", },
+  
+];
+
+
 export const countries = [
   { name: "Afghanistan" },
   { name: "Albania" },

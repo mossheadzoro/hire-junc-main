@@ -3,7 +3,7 @@ import { GET_SELLER_ORDERS_ROUTE } from "../../../utils/constants";
 import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-
+import { FaRegPaperPlane, FaImage } from "react-icons/fa";
 function Orders() {
   const [orders, setOrders] = useState([]);
   const [{ userInfo }] = useStateProvider();
@@ -24,8 +24,8 @@ function Orders() {
     <div className="min-h-[80vh] my-10 mt-0 px-32">
       <h3 className="m-5 text-2xl font-semibold">All your Orders</h3>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-300">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-[#A0C7C7] dark:text-black">
             <tr>
               <th scope="col" className="px-6 py-3">
                 Order Id
@@ -57,7 +57,7 @@ function Orders() {
             {orders.map((order) => {
               return (
                 <tr
-                  className="bg-white dark:bg-gray-800 hover:bg-gray-50"
+                  className="bg-white dark:bg-[#5f7777] dark:text-white hover:bg-gray-500"
                   key={order.id}
                 >
                   <th scope="row" className="px-6 py-4 ">
@@ -70,7 +70,7 @@ function Orders() {
                   <td className="px-6 py-4">{order.price}</td>
                   <td className="px-6 py-4">{order.gig.deliveryTime}</td>
                   <td className="px-6 py-4">
-                    {order.buyer.fullName} ({order.buyer.username})
+                    {order.buyer.fullName} (@{order.buyer.username})
                   </td>
                   <td className="px-6 py-4">{order.createdAt.split("T")[0]}</td>
 
@@ -79,7 +79,13 @@ function Orders() {
                       href={`/seller/orders/messages/${order.id}`}
                       className="font-medium text-blue-600  hover:underline"
                     >
-                      Send
+                      <button
+              type="submit"
+              className="bg-[#1DBF73] hover:border border-white text-white rounded-full px-4 py-2 ml-2"
+              
+            >
+              <FaRegPaperPlane />
+            </button>
                     </Link>
                   </td>
                 </tr>

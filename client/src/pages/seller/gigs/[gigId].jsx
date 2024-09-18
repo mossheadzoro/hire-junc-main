@@ -1,5 +1,5 @@
 import ImageUpload from "../../../components/ImageUpload";
-import { categories } from "../../../utils/categories";
+import { categories, mainCategory } from "../../../utils/categories";
 import { EDIT_GIG_DATA, GET_GIG_DATA } from "../../../utils/constants";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -19,6 +19,7 @@ function EditGig() {
   const [data, setData] = useState({
     title: "",
     category: "",
+    mainCategory:"",
     description: "",
     time: 0,
     revisions: 0,
@@ -71,11 +72,12 @@ function EditGig() {
   }, [gigId]);
 
   const editGig = async () => {
-    const { category, description, price, revisions, time, title, shortDesc } =
+    const { category,mainCategory, description, price, revisions, time, title, shortDesc } =
       data;
 
     if (
       category &&
+      mainCategory&&
       description &&
       title &&
       features.length &&
@@ -91,6 +93,7 @@ function EditGig() {
         title,
         description,
         category,
+        mainCategory,
         features,
         price,
         revisions,
@@ -149,6 +152,24 @@ function EditGig() {
               value={data.category}
             >
               {categories.map(({ name }) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="mainCategory" className={labelClassName}>
+              Select a mainCategory
+            </label>
+            <select
+              id="mainCategory"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
+              name="mainCategory"
+              onChange={handleChange}
+              value={data.mainCategory}
+            >
+              {mainCategory.map(({ name }) => (
                 <option key={name} value={name}>
                   {name}
                 </option>

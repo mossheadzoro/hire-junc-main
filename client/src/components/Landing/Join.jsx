@@ -4,7 +4,7 @@ import React from "react";
 import { useStateProvider } from "../../context/StateContext";
 import { reducerCases } from "../../context/constants";
 
-function JoinFiverr() {
+function Join() {
   const [{ showLoginModal, showSignupModal, isSeller, userInfo }, dispatch] =
   useStateProvider();
   
@@ -33,4 +33,4 @@ function JoinFiverr() {
   );
 }
 
-export default JoinFiverr;
+export default Join;

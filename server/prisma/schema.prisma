@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,75 +8,80 @@ datasource db {
 }
 
 model User {
-  id Int        @id @default(autoincrement())
-  email String  @unique
-  password String 
-  isSocialLogin Boolean? @default(false)
-  username String? @unique
-  fullName String?
-  description String?
-  profileImage String?
-  isProfileInfoSet Boolean? @default(false)
-  createdAt DateTime @default(now())
-  gigs Gigs[]
-  orders Orders[]
-  reviews Reviews[]
-  messagesSent Message[] @relation("sentMessages")
-  messagesReceived Message[] @relation("receivedMessages")
+  id               Int       @id @default(autoincrement())
+  email            String    @unique
+  password         String
+  isSocialLogin    Boolean?  @default(false)
+  description      String?
+  fullName         String?
+  isProfileInfoSet Boolean?  @default(false)
+  profileImage     String?
+  username         String?   @unique
+  createdAt        DateTime  @default(now())
+  gigs             Gigs[]
+  messagesReceived Message[] @relation("ReceivedMessages")
+  messagesSent     Message[] @relation("SentMessages")
+  orders           Orders[]
+  reviews          Reviews[]
 }
 
 model Gigs {
-  id Int @id @default(autoincrement())
-  title String 
-  description String
-  category String
+  id           Int       @id @default(autoincrement())
+  title        String
+  description  String
+  category     String    // Existing category field (e.g., Video Animation, Web Design)
+  mainCategory String  // New field to store "Technical" or "Non-Technical"
   deliveryTime Int
-  revisions Int
-  features String[]
-  price Int
-  shortDesc String
-  createdAt DateTime @default(now())
-  images String[]
-  createdBy User @relation(fields: [userId], references: [id])
-  userId Int
-  orders Orders[]
-  reviews Reviews[]
+  revisions    Int
+  features     String[]
+  price        Int
+  images       String[]
+  userId       Int
+  createdAt    DateTime  @default(now())
+  shortDesc    String
+  createdBy    User      @relation(fields: [userId], references: [id])
+  orders       Orders[]
+  reviews      Reviews[]
 }
+
 
 
 model Orders {
-  id Int @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  buyer User @relation(fields: [buyerId],references: [id])
-  buyerId Int
-  paymentIntent String @unique
-  isCompleted Boolean @default(false)
-  gig Gigs @relation(fields:[gigId],references: [id])
-  gigId Int
-  price Int
-  messages Message[]
+  id            Int       @id @default(autoincrement())
+  createdAt     DateTime  @default(now())
+  buyerId       Int
+  paymentIntent String    @unique
+  isCompleted   Boolean   @default(false)
+  isApproved    Boolean   @default(false)
+  gigId         Int
+  price         Int
+  messages      Message[]
+  buyer         User      @relation(fields: [buyerId], references: [id])
+  gig           Gigs      @relation(fields: [gigId], references: [id])
 }
 
 model Reviews {
-  id Int @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  rating Int
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  rating     Int
   reviewText String?
-  gig Gigs @relation(fields:[gigId],references: [id])
-  gigId Int
-  reviewer User @relation(fields: [reviewerId],references: [id])
+  gigId      Int
   reviewerId Int
-} 
+  gig        Gigs     @relation(fields: [gigId], references: [id])
+  reviewer   User     @relation(fields: [reviewerId], references: [id])
+}
 
 model Message {
-  id Int @id @default(autoincrement())
-  text String
-  createdAt DateTime @default(now())
-  isRead Boolean @default(false)
-  sender User @relation("sentMessages", fields: [senderId], references: [id])
-  senderId Int
-  recipient User @relation("receivedMessages", fields: [recipientId], references: [id])
+  id          Int      @id @default(autoincrement())
+  text        String
+  createdAt   DateTime @default(now())
+  isRead      Boolean  @default(false)
+  order       Orders   @relation(fields: [orderId], references: [id])
+  orderId     Int
+  recipient   User     @relation("ReceivedMessages", fields: [recipientId], references: [id])
   recipientId Int
-  order Orders @relation(fields: [orderId], references: [id])
-  orderId Int
+  sender      User     @relation("SentMessages", fields: [senderId], references: [id])
+  senderId    Int
+  fileUrl     String?
 }
+
