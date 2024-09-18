@@ -19,7 +19,7 @@
 - ✨ **Feature 1** – Escrow Payment System.
 - 🚀 **Feature 2** – Technical/Non-Technical Gigs supported.
 - 🔧 **Feature 3** – Real time in-built message system with file share option.
-- 🌈 **Feature 4** – Real time chat system.
+- 🌈 **Feature 4** – Real time chat-bot system.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
