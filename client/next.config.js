@@ -7,9 +7,18 @@ const nextConfig = {
         protocol: "https",
         hostname: "**",
         port: "",
-        pathname:"**",
+        pathname: "**",
       },
     ],
+  },
+  // Add the rewrites to proxy API requests
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*', // API requests from the frontend
+        destination: 'http://3.109.201.211:8747/api/:path*', // Proxy to AWS backend (without SSL)
+      },
+    ];
   },
 };
 
